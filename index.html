@@ -1,11 +1,513 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Ken at Night School – test</title>
+  <meta charset="UTF-8" />
+  <title>Ken at Night School – pre-A1 Prototype</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
+    body {
+      margin: 0;
+      background: #f4f4f7;
+      color: #222;
+      display: flex;
+      justify-content: center;
+      padding: 16px;
+    }
+    #app {
+      width: 100%;
+      max-width: 900px;
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 20px 20px 24px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+    header {
+      border-bottom: 1px solid #e5e5ef;
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+    header p {
+      margin: 4px 0 0;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    @media (min-width: 768px) {
+      main {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+    }
+    .panel {
+      background: #fafafe;
+      border-radius: 14px;
+      padding: 16px;
+      border: 1px solid #e3e3f0;
+    }
+    .panel-half {
+      flex: 1;
+    }
+    .panel h2 {
+      margin-top: 0;
+      font-size: 1.1rem;
+    }
+    .image-box {
+      border-radius: 12px;
+      border: 1px dashed #c7c7e8;
+      padding: 10px;
+      margin-bottom: 10px;
+      background: #fff;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+    }
+    .level-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      border-radius: 999px;
+      background: #e5f4ff;
+      color: #145a9e;
+      margin-bottom: 6px;
+    }
+    .story-text {
+      font-size: 0.98rem;
+      line-height: 1.5;
+      margin-bottom: 12px;
+      white-space: pre-line;
+    }
+    .focus-box {
+      font-size: 0.85rem;
+      background: #fff7e6;
+      border-radius: 999px;
+      padding: 4px 10px;
+      display: inline-block;
+      margin-bottom: 8px;
+      border: 1px solid #ffd28a;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .btn {
+      border-radius: 999px;
+      border: none;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: transform 0.08s ease, box-shadow 0.08s ease,
+        background-color 0.12s ease, color 0.12s ease;
+    }
+    .btn-primary {
+      background: #4f46e5;
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(79, 70, 229, 0.25);
+    }
+    .btn-primary:hover {
+      background: #4338ca;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(79, 70, 229, 0.3);
+    }
+    .btn-secondary {
+      background: #ffffff;
+      color: #333;
+      border: 1px solid #d4d4e7;
+    }
+    .btn-secondary:hover {
+      background: #f3f3ff;
+      transform: translateY(-1px);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: #555;
+      border: 1px dashed #d4d4e7;
+    }
+    .btn-ghost:hover {
+      background: #f6f6ff;
+    }
+    .small-text {
+      font-size: 0.8rem;
+      color: #777;
+    }
+    footer {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid #e5e5ef;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .share-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    @media (min-width: 640px) {
+      .share-row {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid #cfcfe6;
+      font-size: 0.9rem;
+    }
+    .hidden {
+      display: none;
+    }
+    .page-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 10px 12px;
+      border: 1px solid #e2e2f2;
+      margin-bottom: 8px;
+    }
+    .page-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .page-text {
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+      white-space: pre-line;
+    }
+    .page-image {
+      font-size: 0.78rem;
+      color: #777;
+    }
+    .badge-page {
+      display: inline-block;
+      font-size: 0.7rem;
+      background: #eef2ff;
+      color: #3730a3;
+      border-radius: 999px;
+      padding: 2px 8px;
+      margin-right: 4px;
+    }
+  </style>
 </head>
+<script>
+/* ============================
+   Simple pre-A1 branching story
+   ============================ */
+
+const storyData = [
+  {
+    id: 1,
+    image: "A boy named Ken stands at the school gate. It is night. The moon is big.",
+    text: "Ken is at Night School. He is a little sleepy, but he is happy.\n\nWhat does Ken do first?",
+    options: [
+      {
+        label: "He drinks water.",
+        nextId: 2,
+        text: "Ken drinks some cold water. He feels better.",
+        image: "Ken drinks water from a bottle at school.",
+        vocab: "drink (verb): to take water or juice",
+      },
+      {
+        label: "He says hello to his friend.",
+        nextId: 3,
+        text: "Ken says, 'Hello!' to his friend Taro. Taro smiles.",
+        image: "Ken and Taro smile at each other.",
+        vocab: "hello: a simple greeting",
+      },
+    ],
+  },
+
+  {
+    id: 2,
+    image: "Ken closes his bottle and looks around.",
+    text: "The hallway is quiet. Ken feels calm.\n\nWhat does he do next?",
+    options: [
+      {
+        label: "He goes to class.",
+        nextId: 4,
+        text: "Ken walks to his classroom. The lights are warm.",
+        image: "Ken walks to a bright classroom."
+      },
+      {
+        label: "He checks his bag.",
+        nextId: 5,
+        text: "Ken opens his bag. Oh! He forgot his notebook!",
+        image: "Ken looks inside his school bag and looks surprised."
+      }
+    ],
+  },
+
+  {
+    id: 3,
+    image: "Ken and Taro talk softly.",
+    text: "Taro says, 'Let’s study together!'\nKen feels excited.\n\nWhat do they do?",
+    options: [
+      {
+        label: "Go to the library",
+        nextId: 6,
+        text: "They walk to the small library. It is quiet.",
+        image: "Ken and Taro walking into a quiet school library."
+      },
+      {
+        label: "Go to the classroom",
+        nextId: 4,
+        text: "They go to the classroom together.",
+        image: "Ken and Taro entering a warm classroom."
+      }
+    ],
+  },
+
+  {
+    id: 4,
+    image: "Ken sits in his classroom.",
+    text: "The teacher smiles and says, 'Good evening!'\nKen opens his book.\n\nWhat does he learn tonight?",
+    options: [
+      {
+        label: "Easy words",
+        nextId: 7,
+        text: "Ken learns easy new words. He feels proud.",
+        image: "Ken reading simple English words."
+      },
+      {
+        label: "A short story",
+        nextId: 8,
+        text: "Ken reads a short story about a cat. He enjoys it!",
+        image: "Ken reading a short story with a picture of a cat."
+      }
+    ],
+  },
+
+  {
+    id: 5,
+    image: "Ken touches his head. Oh no!",
+    text: "He forgot his notebook.\nBut he is calm.\n\nWhat does Ken do?",
+    options: [
+      {
+        label: "Ask the teacher",
+        nextId: 9,
+        text: "Ken asks politely, 'Can I borrow paper?' The teacher says yes.",
+        image: "Ken talking to the teacher politely."
+      },
+      {
+        label: "Ask a friend",
+        nextId: 10,
+        text: "Taro shares some paper. Ken says, 'Thank you!'",
+        image: "Taro giving Ken some paper."
+      }
+    ],
+  },
+
+  {
+    id: 6,
+    image: "The library is small but warm.",
+    text: "Ken and Taro read books quietly.\nKen feels relaxed.\n\nWhat does he read?",
+    options: [
+      {
+        label: "A picture book",
+        nextId: 8,
+        text: "Ken reads a picture book with animals.",
+        image: "Ken reading a picture book with animals."
+      },
+      {
+        label: "A map",
+        nextId: 11,
+        text: "Ken looks at a world map. He sees many countries.",
+        image: "Ken looking at a map of the world."
+      }
+    ],
+  },
+
+  {
+    id: 7,
+    image: "Ken smiles at his progress.",
+    text: "He learned new words today.\nThis is the end of your story!",
+    options: []
+  },
+
+  {
+    id: 8,
+    image: "Ken finishes his story.",
+    text: "He enjoys reading.\nThis is the end of your story!",
+    options: []
+  },
+
+  {
+    id: 9,
+    image: "The teacher smiles kindly.",
+    text: "Ken is happy he asked.\nThis is the end of your story!",
+    options: []
+  },
+
+  {
+    id: 10,
+    image: "Taro helps Ken.",
+    text: "Friendship feels good.\nThis is the end of your story!",
+    options: []
+  },
+
+  {
+    id: 11,
+    image: "Ken dreams of traveling one day.",
+    text: "He wants to see the world.\nThis is the end of your story!",
+    options: []
+  }
+];
+
+/* ===================
+   Story engine
+   =================== */
+let currentPage = storyData[0];
+let pageHistory = [];
+
+function renderPage() {
+  const imgBox = document.getElementById("story-image");
+  const textBox = document.getElementById("story-text");
+  const optionsBox = document.getElementById("options");
+
+  imgBox.textContent = currentPage.image;
+  textBox.textContent = currentPage.text;
+  optionsBox.innerHTML = "";
+
+  if (currentPage.options.length === 0) {
+    optionsBox.innerHTML = `
+      <button class="btn btn-primary" onclick="showResult()">Show My Storybook</button>
+      <button class="btn btn-secondary" onclick="restart()">Restart</button>
+    `;
+    return;
+  }
+
+  currentPage.options.forEach((opt, index) => {
+    const btn = document.createElement("button");
+    btn.className = "btn btn-secondary";
+    btn.textContent = opt.label;
+    btn.onclick = () => {
+      pageHistory.push({
+        image: currentPage.image,
+        text: currentPage.text,
+        choice: opt.label,
+      });
+      currentPage = storyData.find((p) => p.id === opt.nextId);
+      renderPage();
+    };
+    optionsBox.appendChild(btn);
+  });
+}
+
+function restart() {
+  currentPage = storyData[0];
+  pageHistory = [];
+  renderPage();
+}
+
+function showResult() {
+  document.getElementById("reading-section").classList.add("hidden");
+  document.getElementById("result-section").classList.remove("hidden");
+
+  const resultBox = document.getElementById("result-pages");
+  resultBox.innerHTML = "";
+
+  pageHistory.forEach((p, i) => {
+    const card = document.createElement("div");
+    card.className = "page-card";
+    card.innerHTML = `
+      <div class="badge-page">Page ${i + 1}</div>
+      <div class="page-text">${p.text}</div>
+      <div class="page-image"><b>Image:</b> ${p.image}</div>
+      <div class="small-text"><b>Your choice:</b> ${p.choice}</div>
+    `;
+    resultBox.appendChild(card);
+  });
+
+  const last = document.createElement("div");
+  last.className = "page-card";
+  last.innerHTML = `
+    <div class="badge-page">Final Page</div>
+    <div class="page-text">${currentPage.text}</div>
+    <div class="page-image"><b>Image:</b> ${currentPage.image}</div>
+  `;
+  resultBox.appendChild(last);
+}
+
+/* Init */
+window.onload = () => {
+  renderPage();
+};
+</script>
 <body>
-  <h1>Ken at Night School – test page</h1>
-  <p>If you see this, GitHub Pages works.</p>
+  <div id="app">
+    <header>
+      <h1>Ken at Night School – pre-A1 Interactive Story</h1>
+      <p>Very simple English. Choose what Ken does and make your own picture book.</p>
+    </header>
+
+    <main>
+      <!-- 左側：読み進めるセクション -->
+      <section id="reading-section" class="panel panel-half">
+        <h2>Read & Choose</h2>
+        <div class="level-tag">Level: pre-A1</div>
+
+        <div id="story-image" class="image-box">
+          <!-- AI用のイメージプロンプトがここに出ます -->
+        </div>
+
+        <div id="story-text" class="story-text">
+          <!-- 物語本文 -->
+        </div>
+
+        <div id="options" class="options">
+          <!-- 選択肢ボタン -->
+        </div>
+
+        <p class="small-text">
+          Tip: You can use the text in the white box as a prompt for an image-generating AI
+          to make pictures for each page.
+        </p>
+      </section>
+
+      <!-- 右側：完成した絵本を表示するセクション -->
+      <section id="result-section" class="panel panel-half hidden">
+        <h2>Your Original Picture Book</h2>
+        <p class="small-text">
+          These are all the pages you made with your choices.
+          You can read them like a simple graded reader.
+        </p>
+
+        <div id="result-pages"></div>
+
+        <button class="btn btn-secondary" onclick="
+          document.getElementById('result-section').classList.add('hidden');
+          document.getElementById('reading-section').classList.remove('hidden');
+        ">
+          ← Back to interactive story
+        </button>
+      </section>
+    </main>
+
+    <footer>
+      <div class="small-text">
+        Prototype note: English is pre-A1. Teacher can add one small new word (i+1) on each page if needed.
+      </div>
+    </footer>
+  </div>
 </body>
 </html>
